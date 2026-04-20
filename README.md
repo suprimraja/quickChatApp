@@ -141,6 +141,12 @@ VITE_BACKEND_URL=http://localhost:5000
 3. Copy your Cloud Name, API Key, and API Secret
 4. Add them to your server `.env` file
 
+## 🧩 Local Development Notes
+
+- Use `npm install` in both `client` and `server` folders before running the project.
+- Keep your Cloudinary credentials and `JWT_SECRET` secure and never commit real secrets.
+- If you use MongoDB Atlas, make sure your IP whitelist includes your current address.
+
 ## 💻 Usage
 
 ### Development Mode
