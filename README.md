@@ -52,7 +52,7 @@ A modern, real-time chat application built with React and Node.js, featuring ins
 - **React Router DOM 7** - Client-side routing
 - **Socket.io Client 4.8** - Real-time communication
 - **Axios** - HTTP client
-- **React Hot Toast** - Toast notifications
+- **React Hot Toast** - Toast notification
 
 ### Backend
 - **Node.js** - Runtime environment
