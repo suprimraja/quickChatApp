@@ -1,0 +1,100 @@
+                    Quick Chat App – Architecture 
+
+The Quick Chat App is built using a MERN stack with Socket.IO to enable real-time messaging. The architecture is divided into four main parts: Frontend, Backend APIs, Real-Time WebSocket Layer, and Database.
+
+1. Frontend (React.js)
+
+The frontend provides the user interface for login, signup, user list, and chat screen.
+It communicates with the backend using Axios (REST APIs) and with the real-time server using Socket.IO Client. Whenever a user sends or receives a message, the UI updates instantly without reloading.
+
+2. Backend (Node.js + Express.js)
+
+The backend handles user authentication and data processing.
+It exposes REST API routes for:
+
+signing up and logging in
+
+fetching users
+
+saving messages
+
+Passwords are hashed using bcrypt, and authentication uses JWT. All controllers and routes are separated for clean structure.
+
+3. Real-Time Communication (Socket.IO Server)
+
+Socket.IO enables live message exchange between two users.
+When a user sends a message:
+
+it is emitted to the Socket.IO server
+
+broadcast instantly to the receiver
+
+then stored in MongoDB through a POST API
+
+This gives the “instant chat” experience.
+
+4. Database (MongoDB Atlas)
+
+MongoDB stores all persistent data, including:
+
+user accounts
+
+messages with sender, receiver, content, and timestamps
+
+The cloud database makes the system scalable and highly available.
+
+Overall Data Flow
+
+React frontend → REST API for authentication & data → Socket.IO for real-time chat → MongoDB for permanent storage. 
+
+                       ┌───────────────────────────┐
+                       │            FRONTEND               │
+                       │             (React.js)            │
+                       │  - Login / Signup Pages           │
+                       │  - Chat Screen                    │
+                       │  - Axios API Requests             │
+                       │  - Socket.IO Client               │
+                       └───────────────┬───────────┘
+                                       │
+                              REST API │
+                                       ▼
+                       ┌─────────────────────────── ┐
+                       │             BACKEND                │
+                       │       Node.js + Express.js         │
+                       │                                    │
+                       │  Controllers:                      │
+                       │   - Auth Controller                │
+                       │   - User Controller                │
+                       │   - Message Controller             │
+                       │                                    │
+                       │  Routes:                           │
+                       │   /api/auth                        │
+                       │   /api/users                       │
+                       │   /api/message                     │
+                       │                                    │
+                       └───────────────┬───────────┘
+                                       │
+                                       │ WebSockets (Real-Time)
+                                       ▼
+                       ┌──────────────────────────┐
+                       │         SOCKET.IO SERVER         │
+                       │   - Handles real-time events     │
+                       │   - Broadcast messages           │
+                       │   - User join/leave rooms        │
+                       └───────────────┬──────────┘
+                                       │
+                                       │
+                                       ▼
+                       ┌───────────────────────────┐
+                       │            MONGODB ATLAS          │
+                       │                                   │
+                       │ Collections:                      │
+                       │   users:                          │
+                       │      _id, name, email, passwordHash│
+                       │   messages:                       │
+                       │      _id, senderId, receiverId,   │
+                       │      content, timestamp           │
+                       │                                   │
+                       └───────────────────────────┘
+
+
